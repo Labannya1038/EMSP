@@ -24,14 +24,14 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'role' => 'required|string|max:255',
+            
         ]);
 
         User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'role' => $request->role,
+            
         ]);
 
         return redirect()->route('users.index')->with('success', 'User created successfully.');
@@ -48,14 +48,14 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:8|confirmed',
-            'role' => 'required|string|max:255',
+            
         ]);
 
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password ? bcrypt($request->password) : $user->password,
-            'role' => $request->role,
+            
         ]);
 
         return redirect()->route('users.index')->with('success', 'User updated successfully.');
